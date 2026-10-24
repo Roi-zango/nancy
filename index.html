@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChatWave — 15 interfaces type messagerie (projet académique)</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- Panneau de navigation pour la soutenance / correction -->
+  <aside class="sidebar">
+    <h1>Nancy Chat UI</h1>
+    <p class="subtitle">15 interfaces — projet académique</p>
+    <nav id="screen-nav">
+      <button data-screen="splash" class="nav-btn active">1. Démarrage</button>
+      <button data-screen="welcome" class="nav-btn">2. Bienvenue</button>
+      <button data-screen="phone" class="nav-btn">3. Numéro de téléphone</button>
+      <button data-screen="otp" class="nav-btn">4. Code de vérification</button>
+      <button data-screen="profile-setup" class="nav-btn">5. Configuration profil</button>
+      <button data-screen="chats" class="nav-btn">6. Discussions</button>
+      <button data-screen="chat" class="nav-btn">7. Conversation individuelle</button>
+      <button data-screen="group-chat" class="nav-btn">8. Conversation de groupe</button>
+      <button data-screen="status" class="nav-btn">9. Statuts</button>
+      <button data-screen="status-viewer" class="nav-btn">10. Visionnage statut</button>
+      <button data-screen="new-chat" class="nav-btn">11. Nouvelle discussion</button>
+      <button data-screen="calls" class="nav-btn">12. Appels</button>
+      <button data-screen="voice-call" class="nav-btn">13. Appel vocal</button>
+      <button data-screen="video-call" class="nav-btn">14. Appel vidéo</button>
+      <button data-screen="settings" class="nav-btn">15. Paramètres</button>
+    </nav>
+    <p class="hint">Astuce : certains écrans sont aussi accessibles en cliquant directement dans le téléphone (ouvrir une discussion, lancer un appel...).</p>
+  </aside>
+
+  <!-- Mockup téléphone -->
+  <main class="phone-wrap">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen-container" id="screen-container">
+
+        <!-- 1. SPLASH -->
+        <section class="screen" id="screen-splash">
+          <div class="splash">
+            <div class="app-icon">💬</div>
+            <h2>Nancy Chat</h2>
+            <div class="loader"></div>
+          </div>
+        </section>
+
+        <!-- 2. WELCOME -->
+        <section class="screen" id="screen-welcome">
+          <div class="welcome">
+            <div class="app-icon small">💬</div>
+            <h2>Bienvenue sur Nancy Chat</h2>
+            <p class="muted">Lisez les conditions d'utilisation et la politique de confidentialité avant de continuer.</p>
+            <button class="btn-primary" data-goto="phone">Accepter et continuer</button>
+          </div>
+        </section>
+
+        <!-- 3. PHONE NUMBER -->
+        <section class="screen" id="screen-phone">
+          <div class="form-screen">
+            <h2>Votre numéro</h2>
+            <p class="muted">ChatWave va vérifier votre numéro par SMS.</p>
+            <div class="input-row">
+              <select class="code-select">
+                <option>🇨🇲 +237</option>
+                <option>🇫🇷 +33</option>
+                <option>🇨🇦 +1</option>
+              </select>
+              <input type="tel" placeholder="6 XX XX XX XX">
+            </div>
+            <button class="btn-primary" data-goto="otp">Suivant</button>
+          </div>
+        </section>
+
+        <!-- 4. OTP -->
+        <section class="screen" id="screen-otp">
+          <div class="form-screen">
+            <h2>Vérification</h2>
+            <p class="muted">Entrez le code à 6 chiffres envoyé par SMS.</p>
+            <div class="otp-row">
+              <input maxlength="1" class="otp-box">
+              <input maxlength="1" class="otp-box">
+              <input maxlength="1" class="otp-box">
+              <input maxlength="1" class="otp-box">
+              <input maxlength="1" class="otp-box">
+              <input maxlength="1" class="otp-box">
+            </div>
+            <p class="link">Vous n'avez rien reçu ? <span>Renvoyer le code</span></p>
+            <button class="btn-primary" data-goto="profile-setup">Vérifier</button>
+          </div>
+        </section>
+
+        <!-- 5. PROFILE SETUP -->
+        <section class="screen" id="screen-profile-setup">
+          <div class="form-screen">
+            <h2>Votre profil</h2>
+            <div class="avatar-picker">👤</div>
+            <input type="text" placeholder="Votre nom" class="text-input">
+            <button class="btn-primary" data-goto="chats">Suivant</button>
+          </div>
+        </section>
+
+        <!-- 6. CHATS LIST -->
+        <section class="screen" id="screen-chats">
+          <header class="app-header">
+            <span>ChatWave</span>
+            <div class="icons"><span data-goto="new-chat" title="Nouvelle discussion">＋</span><span data-goto="settings">⋮</span></div>
+          </header>
+          <div class="search-bar">🔍 Rechercher</div>
+          <div class="tabs">
+            <span class="tab active" data-goto="chats">Discussions</span>
+            <span class="tab" data-goto="status">Statuts</span>
+            <span class="tab" data-goto="calls">Appels</span>
+          </div>
+          <div class="list" id="chats-list"></div>
+        </section>
+
+        <!-- 7. CHAT -->
+        <section class="screen" id="screen-chat">
+          <header class="chat-header">
+            <span class="back" data-goto="chats">←</span>
+            <div class="avatar-sm" id="chat-avatar">A</div>
+            <div class="chat-title">
+              <strong id="chat-name">Awa Ngono</strong>
+              <small>en ligne</small>
+            </div>
+            <div class="icons"><span>📹</span><span data-goto="voice-call">📞</span></div>
+          </header>
+          <div class="messages" id="chat-messages"></div>
+          <div class="input-bar">
+            <span>😊</span>
+            <input type="text" id="chat-input" placeholder="Message">
+            <span id="chat-send">➤</span>
+          </div>
+        </section>
+
+        <!-- 8. GROUP CHAT -->
+        <section class="screen" id="screen-group-chat">
+          <header class="chat-header">
+            <span class="back" data-goto="chats">←</span>
+            <div class="avatar-sm">👥</div>
+            <div class="chat-title">
+              <strong>Projet Soutenance</strong>
+              <small>Awa, Jean, Marc +2</small>
+            </div>
+            <div class="icons"><span>📹</span><span data-goto="voice-call">📞</span></div>
+          </header>
+          <div class="messages" id="group-messages"></div>
+          <div class="input-bar">
+            <span>😊</span>
+            <input type="text" placeholder="Message">
+            <span>➤</span>
+          </div>
+        </section>
+
+        <!-- 9. STATUS LIST -->
+        <section class="screen" id="screen-status">
+          <header class="app-header">
+            <span>Statuts</span>
+            <div class="icons"><span>🔍</span></div>
+          </header>
+          <div class="status-row my-status">
+            <div class="status-ring add"><span class="avatar-sm">👤</span></div>
+            <div><strong>Mon statut</strong><br><small class="muted">Appuyez pour ajouter</small></div>
+          </div>
+          <p class="section-label">Récents</p>
+          <div class="list" id="status-list"></div>
+        </section>
+
+        <!-- 10. STATUS VIEWER -->
+        <section class="screen dark" id="screen-status-viewer">
+          <div class="progress-row">
+            <div class="progress-seg filled"></div>
+            <div class="progress-seg"></div>
+            <div class="progress-seg"></div>
+          </div>
+          <header class="status-viewer-header">
+            <span class="back light" data-goto="status">←</span>
+            <div class="avatar-sm">A</div>
+            <div class="chat-title light"><strong>Awa Ngono</strong><small>il y a 2 h</small></div>
+          </header>
+          <div class="status-content">
+            <p>"Dernière ligne droite avant la soutenance 💪"</p>
+          </div>
+        </section>
+
+        <!-- 11. NEW CHAT -->
+        <section class="screen" id="screen-new-chat">
+          <header class="chat-header">
+            <span class="back" data-goto="chats">←</span>
+            <strong>Nouvelle discussion</strong>
+          </header>
+          <div class="search-bar">🔍 Rechercher un contact</div>
+          <div class="option-row"><span class="avatar-sm group">👥</span> Nouveau groupe</div>
+          <p class="section-label">Contacts</p>
+          <div class="list" id="contacts-list"></div>
+        </section>
+
+        <!-- 12. CALLS -->
+        <section class="screen" id="screen-calls">
+          <header class="app-header">
+            <span>Appels</span>
+            <div class="icons"><span>📞</span></div>
+          </header>
+          <div class="list" id="calls-list"></div>
+        </section>
+
+        <!-- 13. VOICE CALL -->
+        <section class="screen dark" id="screen-voice-call">
+          <div class="call-screen">
+            <p class="muted light">Appel vocal...</p>
+            <div class="avatar-xl">A</div>
+            <h2 class="light">Awa Ngono</h2>
+            <p class="light" id="call-timer">00:00</p>
+            <div class="call-controls">
+              <button class="call-btn">🔇</button>
+              <button class="call-btn">🔊</button>
+              <button class="call-btn">⌨️</button>
+            </div>
+            <button class="call-end" data-goto="chat">📞</button>
+          </div>
+        </section>
+
+        <!-- 14. VIDEO CALL -->
+        <section class="screen dark" id="screen-video-call">
+          <div class="video-call-screen">
+            <div class="self-view">👤</div>
+            <div class="video-info"><strong>Awa Ngono</strong><br><span id="video-timer">00:00</span></div>
+            <div class="call-controls bottom">
+              <button class="call-btn">🔇</button>
+              <button class="call-btn">🔄</button>
+              <button class="call-btn">📷</button>
+              <button class="call-end small" data-goto="chat">📞</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 15. SETTINGS -->
+        <section class="screen" id="screen-settings">
+          <header class="app-header"><span>Paramètres</span></header>
+          <div class="profile-row">
+            <div class="avatar-sm large">👤</div>
+            <div><strong>Vous</strong><br><small class="muted">Disponible</small></div>
+          </div>
+          <div class="list">
+            <div class="settings-item">🔑 <span>Compte</span></div>
+            <div class="settings-item">🔒 <span>Confidentialité</span></div>
+            <div class="settings-item">💬 <span>Discussions</span></div>
+            <div class="settings-item">🔔 <span>Notifications</span></div>
+            <div class="settings-item">💾 <span>Stockage et données</span></div>
+            <div class="settings-item">❓ <span>Aide</span></div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
